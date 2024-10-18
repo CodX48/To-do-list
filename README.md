@@ -25,16 +25,6 @@
         <li><strong>CSS:</strong> For styling the interface.</li>
         <li><strong>JavaScript:</strong> To handle the app's functionality and manage local storage.</li>
     </ul>
-    <h2>Installation & Setup</h2>
-    <ol>
-        <li>Clone this repository:
-            <pre><code>git clone https://github.com/your-repo/todo-list-app.git</code></pre>
-        </li>
-        <li>Navigate to the project folder:
-            <pre><code>cd todo-list-app</code></pre>
-        </li>
-        <li>Open <code>index.html</code> in your browser to start using the app.</li>
-    </ol>
     <h2>Future Enhancements</h2>
     <ul>
         <li><strong>Edit Task Functionality:</strong> Add the ability to edit tasks.</li>
