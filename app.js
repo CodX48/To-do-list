@@ -1,21 +1,24 @@
     let task_cont = document.querySelector('.list-sec ul');
-    let create_task = function(ele,checkedB){
-        let task = document.createElement('li');
-        let title = document.createElement('h2');
-        let title_cont = document.createElement('div');
-        let _delete = document.createElement('button');
-        let check_box =  document.createElement('input');
+    
 
+    let create_task = function(ele,checkedB){
+    let task = document.createElement('li');
+    let title = document.createElement('h2');
+    let title_cont = document.createElement('div');
+    let _delete = document.createElement('button');
+    let check_box =  document.createElement('input');
+        
         check_box.type =  'checkbox';
-        check_box.checked = checkedB;
-        _delete.textContent = "Delete";
         _delete.id = ele;
         title.textContent = ele;
+        check_box.checked = checkedB;
+        _delete.textContent = "Delete";
         if(check_box.checked){
             title.classList.add('active')
         }else{
             title.classList.remove('active')
         }
+
         title_cont.appendChild(check_box);
         title_cont.appendChild(title);
         task.appendChild(title_cont);
@@ -42,6 +45,7 @@
                 }
         });
 
+
         check_box.addEventListener('change',function(){
             if(check_box.checked){
                 title.classList.add('checked');
@@ -52,9 +56,18 @@
         return task;
     };
 
+    let input = document.getElementById(`task-input`);
+    let send_button = document.getElementById(`add-input`);
+
+    document.addEventListener('keydown', (Event)=>{
+        if(input.value !== "" && Event.key == 'Enter'){
+            task_cont.appendChild(create_task(input.value,false));
+            window.localStorage.setItem(input.value, JSON.stringify({name:input.value, date:"16:00", checked: false}));
+            input.value = "";
+        }
+     })
+
     let add_task_btn = function(){
-        let input = document.getElementById(`task-input`);
-        let send_button = document.getElementById(`add-input`)
         send_button.addEventListener("click", function(){
             if(input.value !== ""){
                 task_cont.appendChild(create_task(input.value,false));
@@ -67,16 +80,28 @@
 
     let reload_data = function(){
         let i  = 0;
-        let tasks = window.localStorage.length;
-        while(i < tasks){
+        let task = window.localStorage;
+        let taskslength = task.length;
+        while(i < taskslength){
             let taskOJ = JSON.parse(window.localStorage.getItem(window.localStorage.key(i)));
             let task = create_task(taskOJ.name,taskOJ.checked);
-            task_cont.appendChild(task);
+            if(!taskOJ.checked){
+                task_cont.appendChild(task);
+            }
             i++;
     }
+    i=0;
+    while(i < taskslength){
+        let taskOJ = JSON.parse(window.localStorage.getItem(window.localStorage.key(i)));
+        let task = create_task(taskOJ.name,taskOJ.checked);
+        if(taskOJ.checked){
+            task_cont.appendChild(task);
+        }
+        i++;
+}
     };
     reload_data();
- 
+
 
 
 
